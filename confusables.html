@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unicode Confusables Explorer</title>
+<link rel="stylesheet" href="./normalization/style.css">
+</head>
+<body>
+<header>
+  <h1>Unicode <span class="glyph">Confusables</span> Explorer</h1>
+  <div class="sub">UTS #39 • Version 18.0.0 • bug-bounty ready</div>
+</header>
+
+<div class="wrap">
+  <div class="note" id="loadNote">⏳ Loading confusables.js…</div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="table">📋 All Mappings</button>
+    <button class="tab" data-tab="conv">🔄 Char ↔ Unicode</button>
+  </div>
+
+  <section id="tab-table">
+    <div class="toolbar">
+      <div class="search-box">
+        <input id="search" type="text" placeholder="Search: name, codepoint (002E), hex, dec, or character…">
+        <span class="ico">🔍</span>
+      </div>
+      <select id="catFilter"><option value="">All targets</option></select>
+      <span class="count" id="count"></span>
+    </div>
+
+    <div class="chips" id="chips">
+      <button class="chip practical" data-q="__PRACTICAL__">⚡ Practical</button>
+      <button class="chip" data-q="FULL STOP"><span class="glyph">.</span> Full Stop</button>
+      <button class="chip" data-q="SEMICOLON"><span class="glyph">;</span> Semicolon</button>
+      <button class="chip" data-q="SOLIDUS"><span class="glyph">/</span> Slash</button>
+      <button class="chip" data-q="REVERSE SOLIDUS"><span class="glyph">\</span> Backslash</button>
+      <button class="chip" data-q="SPACE"><span class="glyph">␣</span> Space</button>
+      <button class="chip" data-q="APOSTROPHE"><span class="glyph">'</span> Apostrophe</button>
+      <button class="chip" data-q="QUOTATION MARK"><span class="glyph">"</span> Quote</button>
+      <button class="chip" data-q="GRAVE ACCENT"><span class="glyph">`</span> Backtick</button>
+    </div>
+
+    <div class="table-card">
+      <div class="table-scroll">
+        <table>
+          <thead><tr>
+            <th>Char</th><th></th><th>Target</th>
+            <th>Hex / Dec
+              <button class="th-copy" data-col="hex">📋 all hex</button>
+              <button class="th-copy" data-col="dec">📋 all dec</button>
+            </th>
+            <th>UTF-8</th>
+            <th>HTML / URL <button class="th-copy" data-col="url">📋 all URL</button></th>
+            <th class="sortable" data-sort="risk" style="cursor:pointer">Risk <span class="sort-icon">↕</span></th>
+            <th class="sortable" data-sort="cat" style="cursor:pointer">Cat <span class="sort-icon">↕</span></th>
+            <th></th>
+          </tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-conv" class="hidden">
+    <div class="conv-grid">
+      <div class="card">
+        <h3>🔤 Character → Unicode</h3>
+        <div class="big-glyph" id="c2uGlyph">—</div>
+        <label>Enter character(s)</label>
+        <textarea id="c2uInput" rows="2" placeholder="e.g. .   ·   ۔"></textarea>
+        <div id="c2uOut"></div>
+      </div>
+      <div class="card">
+        <h3>🔢 Unicode → Character</h3>
+        <label>Codepoint (Hex / Dec / U+XXXX)</label>
+        <input id="u2cInput" type="text" placeholder="e.g. 002E or 46 or U+00B7">
+        <div class="big-glyph" id="u2cGlyph" style="margin-top:12px">—</div>
+        <div id="u2cOut"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <h3>📦 Convert full string</h3>
+      <div class="dir-toggle" id="strDirToggle">
+        <button data-dir="text2uni" class="on">Text → Unicode</button>
+        <button data-dir="uni2text">Unicode → Text</button>
+      </div>
+      <div id="strText2Uni">
+        <label>Input text</label>
+        <textarea id="strInput" rows="3" placeholder="Any text…"></textarea>
+        <div id="strOut"></div>
+      </div>
+      <div id="strUni2Text" class="hidden">
+        <label>Input codepoints (space / comma / newline separated; accepts U+XXXX, 0xXXXX, or decimal)</label>
+        <textarea id="uniInput" rows="3" placeholder="e.g.  0041 0042 U+0043 68"></textarea>
+        <div id="uniOut"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="toast">Copied!</div>
+
+<script src="./normalization/data.js"></script>
+<script src="./normalization/app.js"></script>
+</body>
+</html>
